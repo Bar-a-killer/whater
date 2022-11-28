@@ -5,29 +5,27 @@ int main()
 	ios::sync_with_stdio(0),cin.tie(0),cout.tie(0);
 	set<string> vec;
 	int n,j;
-	bool b;
 	cin >> n;
 	string tmp;
 	while(n--)
 	{
 		cin >> tmp;
-		b = vec.count(tmp);
-		if(!b)
+		if(!vec.count(tmp))
 		{
 			vec.insert(tmp);
 			cout << "OK" << endl;
 		}
 		else
 		{
-			j=0;
+			j=1;
 			tmp+=to_string(j);
-			while(b)
+			while(vec.count(tmp))
 			{
 				tmp.pop_back();
 				tmp+=to_string(++j);
 			}
-			cout << tmp << endl;
 			vec.insert(tmp);
+			cout << tmp << endl;
 		}	
 	}
 }
