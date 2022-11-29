@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include<conio.h>
 using namespace std;
 #define f first
 #define s second
@@ -9,9 +10,8 @@ vector<pair<string,string> >  save;
 
 int n=0;
 
-void print()
+void print(int i=n)
 {
-    int i=n;
     while(i--)
         cout << ' ';
 }
@@ -21,10 +21,10 @@ void EtoC()
     int det;
     print();
     cout << tmp.f << endl;
-    system("pause");
+    getch();
     print();
     cout << tmp.s << endl;
-    print();
+
 
 }
 
@@ -33,16 +33,16 @@ void CtoE()
     int det;
     print();
     cout << tmp.s << endl;
-    system("pause");
+    getch();
     print();
     cout << tmp.f << endl;
-    print();
+
 
 }
 
-bool theelse(int det)
+bool theelse(char det)
 {
-    if(det==3)
+    if(det=='3')
     {
         cout << "start here" << endl;
         while(!datas.empty())
@@ -53,12 +53,12 @@ bool theelse(int det)
             datas.pop_back();
         }
     }
-    else if(det==4)
+    else if(det=='4')
     {
         print();
         printf("%d\n",datas.size());
     }
-    else if(det==5)
+    else if(det=='5')
         return 1;
     return 0;
 }
@@ -75,7 +75,8 @@ int main()
 		datas.push_back(tmp);
 	}
 	save=datas;
-	int det=0,mode=0,ra;
+	int mode=0,ra;
+	char det='0';
 	cout << "輸入排版空格數" << endl;
 	cin >> n;
 	cout << "__________\n|試煉開始|\n|________|" << endl;
@@ -96,10 +97,13 @@ int main()
 		{
             CtoE();
 		}
+		cout << '\n';
+        print();
         cout << "正確按1 不正確按2\n按3輸出剩下所有單字 按4顯示剩下單字數量並結束" << endl;
         print();
-        cin >> det;
-        if(det==1)
+        det = getche();
+        cout << endl;
+        if(det=='1')
         {
             datas.erase (datas.begin()+ra);
         }
