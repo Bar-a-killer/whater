@@ -13,7 +13,6 @@ int main()
 	cin >> T;
 	for(int i=0;i<T;i++)
 	{
-		
 		cout << "Line #" << i+1 << endl;
 		cin >> N;
 		for(int j=0;j<N;j++)
@@ -29,8 +28,11 @@ int main()
 		cin >> M;
 		outputpair.first = -1;
 		int vetmplen=0;
+		int newdata=1;
 		for(int j=0;j<M;j++)
 		{
+			//if(j==10||j==11)
+			//	cout<<outputpair.first<< " " << vetmp.front().first << endl;
 			if(outputpair.first == -1)
 			{
 				cin >> mode;
@@ -39,6 +41,7 @@ int main()
 				{
 					if(china[k].count(tmp))
 					{
+						china[k].erase(tmp);
 						outputpair.first = tmp;outputpair.second = k;
 						break;
 					}
@@ -54,10 +57,18 @@ int main()
 					{
 						if(china[k].count(tmp))
 						{
+							china[k].erase(tmp);
 							ptmp.first = tmp;ptmp.second = k;
 							vetmp.push_back(ptmp);
 							vetmplen++;
 							break;
+						}
+						else if(k+1==N)
+						{
+							ptmp.first = tmp;ptmp.second = k+newdata;
+							vetmp.push_back(ptmp);
+							newdata++;
+							vetmplen++;
 						}
 					}
 				}
@@ -72,6 +83,7 @@ int main()
 					if(vetmplen == 0)
 					{
 						outputpair.first = -1;
+						continue;
 					}
 					if(outputpair.second == vetmp.front().second)
 					{
@@ -94,6 +106,7 @@ int main()
 								outputpair = vetmp.front();
 								vetmp.pop_front();
 								vetmplen--;
+								break;
 							}
 						}
 					}

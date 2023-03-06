@@ -77,10 +77,10 @@ int main()
 	save=datas;
 	int mode=0,ra;
 	char det='0';
-	cout << "¿é¤J±Æª©ªÅ®æ¼Æ" << endl;
+	cout << "ï¿½ï¿½ï¿½Jï¿½Æªï¿½ï¿½Å®ï¿½ï¿½ï¿½" << endl;
 	cin >> n;
-	cout << "__________\n|¸Õ·Ò¶}©l|\n|________|" << endl;
-	cout << "«ö1¶i¤J­^Â½¤¤\n«ö2¶i¤J¤¤Â½­^" << endl;
+	cout << "__________\n|ï¿½Õ·Ò¶}ï¿½l|\n|________|" << endl;
+	cout << "ï¿½ï¿½1ï¿½iï¿½Jï¿½^Â½ï¿½ï¿½\nï¿½ï¿½2ï¿½iï¿½Jï¿½ï¿½Â½ï¿½^" << endl;
 	while(mode != 1 && mode != 2)
         cin >> mode;
 	while(!datas.empty())
@@ -99,7 +99,7 @@ int main()
 		}
 		cout << '\n';
         print();
-        cout << "¥¿½T«ö1 ¤£¥¿½T«ö2\n«ö3¿é¥X³Ñ¤U©Ò¦³³æ¦r «ö4Åã¥Ü³Ñ¤U³æ¦r¼Æ¶q¨Ãµ²§ô" << endl;
+        cout << "ï¿½ï¿½ï¿½Tï¿½ï¿½1 ï¿½ï¿½ï¿½ï¿½ï¿½Tï¿½ï¿½2\nï¿½ï¿½3ï¿½ï¿½ï¿½Xï¿½Ñ¤Uï¿½Ò¦ï¿½ï¿½ï¿½ï¿½r ï¿½ï¿½4ï¿½ï¿½ï¿½Ü³Ñ¤Uï¿½ï¿½ï¿½rï¿½Æ¶qï¿½Ãµï¿½ï¿½ï¿½" << endl;
         print();
         det = getche();
         cout << endl;
@@ -110,5 +110,5 @@ int main()
         else if(theelse(det))
             break;
 	}
-	printf("®¥³ß¥ş¹L");
+	printf("ï¿½ï¿½ï¿½ß¥ï¿½ï¿½L");
 }
