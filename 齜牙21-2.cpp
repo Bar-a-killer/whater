@@ -24,6 +24,10 @@ int main()
 	int k = 1;
 	for(int i=0;i<m;i++)
 	{
+		// cout << i << ":";
+		// for(int j=1;j<=n;j++)
+			// cout << data[j] << " ";
+		// cout << endl;
 		cin >> mod >> po;
 		if(mod == 1)
 		{
@@ -42,13 +46,13 @@ int main()
 			
 			pos[po] = 0;
 		}
-		// cout << i << ":";
-		// for(int j=1;j<=n;j++)
-			// cout << data[j] << " ";
-		// cout << endl;
+		
+		
 	}
 	for(int j=1;j<=n;j++)
-		if(data[j] != 0)
+		if(data[j] != 0 && j != n)
 			cout << data[j] << " ";
+		else if(data[j] != 0)
+			cout << data[j];
 	cout << endl;
 }

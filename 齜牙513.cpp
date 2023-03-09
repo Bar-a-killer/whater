@@ -1,27 +1,38 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define F first
+#define S second
 int main(){
 	int n;
 	cin >> n;
-	vector<int> datas;
-	int tmp,maxx=0;
-	for(int i=0;i<n;i++){
+	stack<pair<int,int>> datas;
+	pair<int,int> ptmp;
+	long tmp,tmp1;
+	long maxx=0;
+	
+	ptmp.F = 0;
+	ptmp.S = 0;
+	datas.push(ptmp);
+	
+	for(int i=1;i<=n;i++){
 		cin >> tmp;
-		datas.push_back(tmp);
+		
+		while(datas.size() != 1 && datas.top().F > tmp)
+		{
+			tmp1 = datas.top().F;
+			while(datas.size() != 1 && datas.top().F == tmp1)
+				datas.pop();
+			maxx = max(maxx,(i-datas.top().S-1)*tmp1);
+		}
+		ptmp.F = tmp;
+		ptmp.S = i;
+		datas.push(ptmp);
 	}
-	int head,tail;
-	for(int i=n-1;i>=0;i--){
-		head=i;tail=i;
-		while(--head>0)
-			if(datas[head]<datas[i])
-				break;
-		while(++tail<n-1)
-			if(datas[tail]<datas[i])
-				break;
-		while(datas.size() > 0 && datas.back() > datas[i])
-			datas.pop_back();
-		cout << tail-head << endl;
-		maxx = max(maxx,(tail-head)*datas[i]);
+	while(datas.size() != 1)
+	{
+		tmp1 = datas.top().F;
+		datas.pop();
+		maxx = max(maxx,long((n-datas.top().S))*tmp1);
 	}
 	cout << maxx << endl;
 }
