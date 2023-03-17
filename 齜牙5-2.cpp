@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 vector<queue<int>> llist;
-int hadout=0;
+int hadout=0,cuted=0;
 void output(queue<int> que)
 {
 	while(que.size() != 0 && que.front() != 0)
@@ -17,17 +17,16 @@ void output(queue<int> que)
 			output(llist[-que.front()]);
 			que.pop();
 		}
-			
 	}
 }
 void cut(queue<int> &que)
 {
-	while(que.size() != 0 && que.front() != 0 && hadout == 0)
+	while(que.size() != 0 && que.front() != 0 && cuted == 0)
 	{
 		if(que.front() > 0)
 		{
 			que.pop();
-			hadout = 1;
+			cuted = 1;
 			return;
 		}
 		else
@@ -64,7 +63,7 @@ int main()
 				if(llist[L].size() == 0)
 					cout << "queue " << L << " is empty!" << endl;
 				cut(llist[L]);
-				hadout = 0;
+				cuted = 0;
 				break;
 			case 'J':
 				cin >> M;
