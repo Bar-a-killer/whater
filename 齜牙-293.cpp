@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 struct Node{
-	int data;
+	//int data;
 	vector<Node*> children;
 };
 void add_node(Node* parent,Node* child){
@@ -20,6 +20,7 @@ void dfs(Node* node,Node* parent){
 	//cout << endl;
 }
 int main(){
+	ios::sync_with_stdio(0),cin.tie(0);
 	int T;
 	cin >> T;
 	while(T--){
@@ -28,10 +29,10 @@ int main(){
 		vector<Node*> nodes;
 		nodes.clear();
 		nodes.resize(n);
-		for(int i=0;i<n;i++){
+		for(int i=0;i<n;i++)//{
 			nodes[i] = new Node();
-			nodes[i]->data = i;
-		}
+			//nodes[i]->data = i;
+		//}
 		for(int i=0;i<n-1;i++){
 			int parent,child;
 			cin >> parent >> child;
@@ -51,9 +52,9 @@ int main(){
 			}
 			tmp = 0;
 		}
-		cout << ans << endl;
-		for(int i=0;i<n;i++){
-			delete nodes[i];
-		}
+		cout << ans << "\n";
+		//for(int i=0;i<n;i++){
+		//	delete nodes[i];
+		//}
 	}
 }

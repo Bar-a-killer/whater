@@ -10,21 +10,26 @@ int bfs(vector<vector<char>>& themap, int t, int w) {
     q.push({t, w});
     themap[t][w] = '#';
     int cnt = 1;
+    int sz;
     pair<int,int> tmp;
     while (!q.empty()) {
-        tmp = q.front();
-        q.pop();
-        for (int d = 0; d < 4; d++) {
-            int next_t = tmp.first + dx[d];
-            int next_w = tmp.second + dy[d];
-            if (next_t < 0 || next_t >= rows || next_w < 0 || next_w >= cols || themap[next_t][next_w] == '#') {
-                continue;
-            }
-            if(themap[next_t][next_w] == '@')
-                return cnt;
-            themap[next_t][next_w] = '#';
-            q.push({next_t, next_w});
-        }
+    	sz = q.size();
+    	while(sz--) {
+    		tmp = q.front();
+	        q.pop();
+	        for (int d = 0; d < 4; d++) {
+	            int next_t = tmp.first + dx[d];
+	            int next_w = tmp.second + dy[d];
+	            if (next_t < 0 || next_t >= rows || next_w < 0 || next_w >= cols || themap[next_t][next_w] == '#') {
+	                continue;
+	            }
+		        if(themap[next_t][next_w] == '@') {
+		        	return cnt;
+		        }
+	            themap[next_t][next_w] = '#';
+	            q.push({next_t, next_w});
+	        }
+    	}
         cnt++;
     }
     return 0;
