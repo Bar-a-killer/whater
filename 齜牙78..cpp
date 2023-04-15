@@ -18,19 +18,35 @@ int main() {
         box[2] = box[2]%4;
         if(box[2])
             ans++;
-        two += 4-box[2];
-        one += (4-box[2]) * 5;
+        if(box[2] == 1) {
+        	two += 5;
+        	one += 7;
+        }
+        if(box[2] == 2) {
+        	two += 3;
+        	one += 6;
+        }
+        if(box[2] == 3) {
+        	two += 1;
+        	one += 5;
+        }
         box[1] -= two;
         if(box[1] > 0) {
-            ans += box[1] / 9 + 1;
+            ans += box[1] / 9;
             box[1] = box[1] % 9;
-            one += (9-box[1]) * 2;
+            if(box[1]>0) {
+            	ans++;
+            	one += (9-box[1]) * 4;
+            }
         }
         else
-            one += (-1*box[1]) * 2;
+            one += (-1*box[1]) * 4;
         box[0] -= one;
-        if(box[0] > 0)
-            ans += box[1] / 36 + 1;
-        cout << ans  << ":" << endl;
+        if(box[0] > 0) {
+        	ans += box[0] / 36;
+        	if(box[0]%36 > 0) 
+        		ans++;
+        }
+        cout << ans << endl;
     }
 }
