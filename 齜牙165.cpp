@@ -1,43 +1,41 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define For(i,x) for(int i = 0;i < x ; i++)
+
+struct node {
+	int father = 0;
+	bool exist = 1;
+	vector<int> children;
+};
 int main() {
 	int T;
 	cin >> T;
 	while(T--) {
 		int n,m;
 		int p1,p2;
-		bool graph[1000][1000] = {0};
-		int father[1000] = {0};
-		bool exist[1000];
-		For(i,n) {
-			exist[i] = 1;
-		}
+		vector<node> graph;
 		cin >> n >> m;
+		graph.resize(n);
 		For(i,m) {
 			cin >> p1 >> p2;
-			graph[p1][p2] = 1;
-			father[p2]++;
+			graph[p1].children.push_back(p2);
+			graph[p2].father ++;
 		}
 		queue<int> output;
-		bool go = 1;
-		while(go) {
-			go = 0;
-			for(int i = n-1 ; i>=0 ; i--) {
-				if(exist[i] && father[i] == 0) {
-					exist[i] = 0;
-					For(j,n) {
-						if(graph[i][j] == 1) 
-							father[j]--;
-					}
-					go = 1;
-					output.push(i);
-					//cout << "check!" << endl;
+		bool go = 0;
+		for(int i = 0; i<n ; i++) {
+			if(graph[i].exist && graph[i].father == 0) {
+				graph[i].exist = 0;
+				for(int j : graph[i].children) {
+					graph[j].father--;
 				}
+				output.push(i);
+				i = 0;
+				//cout << "check!" << endl;
 			}
 		}
 		For(j,n) {
-			if(exist[j]) 
+			if(graph[j].exist) 
 				go = 1;
 		}
 		if(go)
