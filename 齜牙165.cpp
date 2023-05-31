@@ -22,7 +22,7 @@ int main() {
 			graph[p2].father ++;
 		}
 		queue<int> output;
-		bool go = 0;
+		//priority_queue<int> lone;
 		for(int i = 0; i<n ; i++) {
 			if(graph[i].exist && graph[i].father == 0) {
 				graph[i].exist = 0;
@@ -31,9 +31,9 @@ int main() {
 				}
 				output.push(i);
 				i = 0;
-				//cout << "check!" << endl;
 			}
 		}
+		bool go = 0;
 		For(j,n) {
 			if(graph[j].exist) 
 				go = 1;
@@ -41,11 +41,12 @@ int main() {
 		if(go)
 			cout << "QAQ" << endl;
 		else {
-			while(output.size()) {
+			while(output.size() > 1) {
 				cout << output.front() << " ";
 				output.pop();
 			}
-			cout << endl;
+			cout << output.front() << endl;
+			output.pop();
 		}
 	}
 }

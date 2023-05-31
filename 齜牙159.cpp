@@ -17,34 +17,36 @@ int main() {
     while (T--) {
         int N, M;
         cin >> N >> M;
-        int f, s;
         Pt tmp;
+        bool dp[200*100] = {0};
         For(i, N) {
             cin >> tmp.F >> tmp.S;
             coin.pb(tmp);
         }
-        sort(coin.begin(),coin.end(),cmp);
+        dp[0] = 1;
         
-        dp[200*100][20001] = {};
         
         for(int i = 0;i < N;i++) {
-        	for(int k = 0;k < M;k++) {
-        		for(int j = 1;j < coin[i].S;j++) {
-        			dp[i][k] = dp[i - j][k] + dp[i - j][k - coin[i].F*j];
+        	for(int k = M;k >= 1;k--) {
+        		for(int j = coin[i].S;j >= 1 ;j--) {
+        			if(k - j*coin[i].F >= 0)
+        				dp[k] = dp[k - j*coin[i].F] || dp[k];
         		}
+        		//cout << k << " : " << dp[k] << endl;
         	}
         }
         
         
         
-        if (Dp(dp[0],dp[1],N,M))
+        if (dp[M])
             cout << "Yes" << endl;
         else
             cout << "No"  << endl;
-        for (; ptr > 0; ptr--) {
-            dp[0][ptr] = 0;
-            dp[1][ptr] = 0;
+        For(i,N) {
+            dp[0] = 0;
+            dp[1] = 0;
         }
+        coin.clear();
     }
     return 0;
 }
