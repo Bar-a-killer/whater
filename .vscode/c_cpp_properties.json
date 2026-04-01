@@ -1,15 +1,21 @@
 {
     "configurations": [
         {
-            "name": "Linux",
+            "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "C:/mingw64/include/c++/15.2.0/x86_64-w64-mingw32"
             ],
-            "defines": [],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.26100.0",
+            "compilerPath": "C:/mingw64/bin/g++.exe",
             "cStandard": "c17",
-            "cppStandard": "gnu++14",
-            "intelliSenseMode": "linux-gcc-x64",
-            "compilerPath": "/usr/bin/g++-13"
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-x86"
         }
     ],
     "version": 4
