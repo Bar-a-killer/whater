@@ -1,0 +1,17 @@
+# .vscode 資料夾設定
+.vscode/*
+# 排除個人化的設定與狀態
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/code-snippets
+
+# 務必排除本地端的暫存資料與工作區狀態
+.vscode/*.code-workspace
+.vscode/.history/
+
+*.exe
+*.o
+*.out
+*.obj
