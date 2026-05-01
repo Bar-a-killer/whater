@@ -19,11 +19,19 @@ signed main() {
         cin >> a >> b;
         metrix[i] = {a,b};
     }
-    for(int k = 0;k < 500;k++) {
-        for(int i = 0;i < 500;i++) {
-            for(int j = 0;j < 500;j++) {
-                bf[i][j] = min(bf[i][j],bf[i][k]+bf[k+1][j]+metrix[i].first*metrix[k].second*metrix[j].second);
+    for(int k = 1;k <= n;k++) {
+        for(int right = k;right < n;right++) {
+            int left = right-k;
+            for(int j = left;j <= right-1;j++) {
+                bf[left][right] = min(bf[left][right],bf[left][j]+bf[j+1][right]+metrix[left].first*metrix[j].second*metrix[right].second);
             }
         }
     }
+    // for(int i = 0;i < n;i++) {
+    //     for(int j = 0;j < n;j++) {
+    //         cout << bf[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
+    cout << bf[0][n-1] << endl;
 }
