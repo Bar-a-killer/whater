@@ -46,25 +46,18 @@ signed main() {
     }
 
     vector<int> tmp(arr.begin(), arr.begin()+n);
-    tmp.push_back(l);tmp.push_back(r);
+    tmp.push_back(0);
     sort(tmp.begin(), tmp.end());
     tmp.erase(unique(tmp.begin(), tmp.end()), tmp.end());
     int ans = 0;
     BIT.init(tmp.size()+1);
-
-    for(auto i : tmp) cout << i << " ";
-    cout << endl;
+    BIT.update(findl(tmp, 0), 1);
 
     for(int i = 0;i < n;i++) {
-        BIT.update(findl(tmp,arr[i]),1);
-        for(int j = 1;j<=tmp.size();j++) {
-            cout << BIT.query(j) << " ";
-        } cout << endl;
-        int rbound = BIT.query(findu(tmp,-(l-arr[i]))-1);
-        int lbound = BIT.query(findl(tmp,-(r-arr[i])));
+        int rbound = BIT.query(findu(tmp,arr[i] - l)-1);
+        int lbound = BIT.query(findl(tmp,arr[i] - r)-1);
         ans += rbound - lbound;
-        cout << "ans=" << ans << endl;
-        cout << lbound << ":" << rbound << endl;
+        BIT.update(findl(tmp, arr[i]), 1);
     }
     cout << ans << endl;
 }
