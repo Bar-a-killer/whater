@@ -3,7 +3,8 @@ using namespace std;
 #define yuri ios::sync_with_stdio(0),cin.tie(0);
 #define int long long
 typedef pair<int,int> pii;
-const int maxn = 400005;
+#define endl "\n"
+const int maxn = 100005;
 vector<pii> v_all[maxn];
 vector<pii> v[maxn];
 int in[maxn];
@@ -106,9 +107,12 @@ signed main() {
     }
     for(auto [a,b,c]:input) {
         if(in_mst.count({a, b})) {
-            cout << toans << endl;
+            cout << "YES" << endl;
         } else {
-            cout << toans - lca_maxw(a,b) + c << endl;
+            if(toans - lca_maxw(a,b) + c == toans)
+                cout << "YES" << endl;
+            else 
+                cout << "NO" << endl;
         }
     }
     return 0;
