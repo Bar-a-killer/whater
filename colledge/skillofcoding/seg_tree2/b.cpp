@@ -26,12 +26,33 @@ class seg_T{
     }
     void push(int id,int l,int r) {
         if(tag_add[id] && tag_set[id]) {
+            seg_tree[id] = (r-l+1)*tag_set[id];
             seg_tree[id] += (r-l+1)*tag_add[id];
             if(l != r) {
-                tag[cl(id)] += tag[id];
-                tag[cr(id)] += tag[id];
+                tag_set[cl(id)] = tag_set[id];
+                tag_set[cr(id)] = tag_set[id];
+                tag_add[cl(id)] += tag_add[id];
+                tag_add[cr(id)] += tag_add[id];
             }
-            tag[id] = 0;
+            tag_set[id] = 0;
+            tag_add[id] = 0;
+        } else if(tag_add[id]) {
+            seg_tree[id] += (r-l+1)*tag_add[id];
+            if(l != r) {
+                tag_add[cl(id)] += tag_add[id];
+                tag_add[cr(id)] += tag_add[id];
+            }
+            tag_add[id] = 0;
+        } else if(tag_set[id]) {
+            seg_tree[id] = (r-l+1)*tag_set[id];
+            if(l != r) {
+                tag_set[cl(id)] = tag_set[id];
+                tag_set[cr(id)] = tag_set[id];
+                tag_add[cl(id)] = 0;
+                tag_add[cr(id)] = 0;
+            }
+            tag_set[id] = 0;
+            tag_add[id] = 0;
         }
     }
     void pull(int id,int l,int r) {
@@ -74,7 +95,7 @@ class seg_T{
     void update_set(int l,int r,int id,int ql,int qr,int v) {
         push(id,l,r);
         if(ql<=l&&r<=qr) {
-            tag_set[id] += v;
+            tag_set[id] = v;
             return;
         }
         int mid = (l+r) >> 1;
@@ -89,42 +110,49 @@ class seg_T{
     void update_add(int l,int r,int id,int ql,int qr,int v) {
         push(id,l,r);
         if(ql<=l&&r<=qr) {
-            tag_set[id] += v;
+            tag_add[id] += v;
             return;
         }
         int mid = (l+r) >> 1;
         if(ql <= mid) {
-            update(l,mid,cl(id),ql,qr,v);
+            update_add(l,mid,cl(id),ql,qr,v);
         }
         if(qr > mid) {
-            update(mid+1,r,cr(id),ql,qr,v);
+            update_add(mid+1,r,cr(id),ql,qr,v);
         }
         pull(id,l,r);
     }
-    void update(int val,int l,int r) {
-        update(1,n,1,l,r,val);
+    void update_add(int val,int l,int r) {
+        update_add(1,n,1,l,r,val);
+    }
+    void update_set(int val,int l,int r) {
+        update_set(1,n,1,l,r,val);
     }
 };
 void solve() {
     int n,q;
     cin >> n >> q;
     seg_T t(n);
+    t.input_datas();
+    t.build();
     for(int i = 0;i<q;i++) {
         int op=0;
         cin >> op;
         int l,r;
         cin >> l >> r;
         if(op == 1) {
-            cout << t.query(l,r) << endl;
-        } else {
             int val;
             cin >> val;
-            t.update(val,l,r);
+            t.update_add(val,l,r);
+        } else if(op == 2) {
+            int val;
+            cin >> val;
+            t.update_set(val,l,r);
+        } else if(op == 3) {
+            cout << t.query(l,r) << endl;
         }
     }
 }
 signed main() {
-    int t;
-    cin >> t;
-    while(t--) solve();
+    solve();
 }
