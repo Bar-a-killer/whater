@@ -2,13 +2,12 @@
 using namespace std;
 #define yuri ios::sync_with_stdio(0),cin.tie(0);
 #define int long long
+#define endl "\n"
 typedef pair<int,int> pii;
-const int maxn = 400005;
-vector<pii> v_all[maxn];
+const int maxn = 200005;
 vector<pii> v[maxn];
 int in[maxn];
 int out[maxn];
-int vis[maxn];
 int anc[maxn][21];
 int timee = 1;
 int lcaw[maxn][21] = {0};
@@ -36,35 +35,6 @@ int lca(int a,int b) {
     }
     return anc[a][0];
 }
-set<pair<int,int>> in_mst;
-struct m {
-    int w,u,v;
-    bool operator>(const m& o) const {
-        return w > o.w;
-    }
-};
-int toans = 0;
-int viss[maxn] = {0};
-void mst() {
-    priority_queue<m,vector<m>,greater<m>> que;
-    viss[1] = 1;
-    for(pii i:v_all[1]) {
-        que.push({i.second,1,i.first});
-    }
-    while(!que.empty()) {
-        auto to = que.top(); que.pop();
-        if(viss[to.v]) continue;
-        viss[to.v] = 1;
-        for(pii i:v_all[to.v]) {
-            que.push({i.second, to.v, i.first});
-        }
-        v[to.u].push_back({to.v,to.w});
-        v[to.v].push_back({to.u,to.w});
-        in_mst.insert({to.u, to.v});
-        in_mst.insert({to.v, to.u});
-        toans += to.w;
-    }
-}
 int lca_maxw(int a, int b) {
     int l = lca(a, b);
     int maxw = 0;
@@ -84,19 +54,20 @@ int lca_maxw(int a, int b) {
     if(b != l) maxw = max(maxw, lcaw[b][0]);
     return maxw;
 }
-signed main() {
-    yuri;
-    int n,m;
-    cin >> n >> m;
-    vector< tuple<int,int,int> > input;
-    for(int i = 0;i < m;i++) {
+void solve(int n) {
+    timee = 1;
+    for(int i = 1; i <= n; i++) {
+        v[i].clear();
+        fill(anc[i], anc[i]+21, 0);
+        fill(lcaw[i], lcaw[i]+21, 0);
+    }
+    int m;
+    for(int i = 0;i < n-1;i++) {
         int a,b,c;
         cin >> a >> b >> c;
-        v_all[a].push_back({b,c});
-        v_all[b].push_back({a,c});
-        input.push_back({a,b,c});
+        v[a].push_back({b,c});
+        v[b].push_back({a,c});
     }
-    mst();
     dfs1(1,0);
     for(int j = 1; j <= 20; j++) {
         for(int i = 1; i <= n; i++) {
@@ -104,12 +75,20 @@ signed main() {
             lcaw[i][j] = max(lcaw[i][j - 1],lcaw[anc[i][j - 1]][j - 1]);
         }
     }
-    for(auto [a,b,c]:input) {
-        if(in_mst.count({a, b})) {
-            cout << toans << endl;
-        } else {
-            cout << toans - lca_maxw(a,b) + c << endl;
-        }
+    cin >> m;
+    for(int i = 0;i < m;i++) {
+        int a,b;
+        cin >> a >> b;
+        cout << lca_maxw(a,b) << endl;
+    }
+}
+signed main() {
+    yuri;
+    int n;
+    while(cin >> n) {
+        if(n == 0) break;
+        solve(n);
+        cout << endl;
     }
     return 0;
 }
