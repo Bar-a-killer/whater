@@ -36,9 +36,9 @@ int lca(int a,int b) {
     }
     return anc[a][0];
 }
-set<pair<int,int>> in_mst;
+set<int> in_mst;
 struct m {
-    int w,u,v;
+    int w,u,v,id;
     bool operator>(const m& o) const {
         return w > o.w;
     }
@@ -58,10 +58,9 @@ void mst() {
         for(pii i:v_all[to.v]) {
             que.push({i.second, to.v, i.first});
         }
-        v[to.u].push_back({to.v,to.w});
-        v[to.v].push_back({to.u,to.w});
-        in_mst.insert({to.u, to.v});
-        in_mst.insert({to.v, to.u});
+        v[to.u].push_back({to.v,to.w,to.id});
+        v[to.v].push_back({to.u,to.w,to.id});
+        in_mst.insert(to.id);
         toans += to.w;
     }
 }
@@ -104,12 +103,13 @@ signed main() {
             lcaw[i][j] = max(lcaw[i][j - 1],lcaw[anc[i][j - 1]][j - 1]);
         }
     }
+    cout << toans << " ";
+    int ans = 1e18;
     for(auto [a,b,c]:input) {
-        if(in_mst.count({a, b})) {
-            cout << toans << endl;
-        } else {
-            cout << toans - lca_maxw(a,b) + c << endl;
+        if(!in_mst.count({a, b})) {
+            ans = min(ans,toans - lca_maxw(a,b) + c);
         }
     }
+    cout << ans << endl;
     return 0;
 }
